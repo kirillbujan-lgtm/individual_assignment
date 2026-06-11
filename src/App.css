@@ -4,7 +4,7 @@ body {
   margin: 0;
 }
 
-#body_container {
+#body_content {
   text-align: center;
   display: block;
   float: left;
@@ -67,10 +67,35 @@ header h3{
   text-align: center;
 }
 
-#body_container {
-  text-align: center;
-  display: block;
-  float: left;
+.filter_group{
+	margin-top: 10px;
+	text-align: center;
+	display:block;
+}
+
+.filter_group select{
+	color: #ffffff;
+	text-shadow: #ffffff 1px 0 1px;
+	background: #0A0065;
+	padding: 5px 10px;
+	font-size: 18px;
+}
+
+.filter_group select::picker(select) {
+  appearance: base-select;
+  border: 2px solid #3b82f6;
+  border-radius: 8px;
+  padding: 4px;
+  background-color: #ffffff;
+}
+
+
+option:checked{
+	background: #0Aad65;
+}
+
+.filter_group select option:disabled{
+	background: #0Aad65;
 }
 
 .standart {
@@ -107,8 +132,6 @@ header h3{
 .standart .actors,.standart .description,.standart .video  {
   display: none;
 }
-
-
 
 .full_screen {
   background-color: #ebdae9;

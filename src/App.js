@@ -2,32 +2,33 @@ import { useState } from 'react'
 import { movies } from "./data/data.js";
 import './App.css'
 
-var data_rule = movies
 
+var data_rule = movies.sort((a, b) => ((a.name > b.name)? 1 : -1))
+console.log(data_rule)
 function App() {
 	const [count, setCount] = useState(0)
 	const [movie_name, setMovie] = useState("")
 	const [name, setName] = useState("")
 	const [movie_year, setMovieYear] = useState(0)
 	const [year, setYear] = useState(2000)
+	const [filters, setFilter] = useState('name')
 	
 	switch(count){
 		case  0:
 			setStandart()
-			data_rule=movies
-
+			data_rule=data_rule
 			break
 		case  1:
 			setStandart()
-			data_rule=movies.filter((d) => d.year == movie_year)
+			data_rule=data_rule.filter((d) => d.year == movie_year)
 			break
 		case  2:
 			setStandart()
-			data_rule=movies.filter((d) => d.name.includes(movie_name))
+			data_rule=data_rule.filter((d) => d.name.toLowerCase().includes(movie_name.toLowerCase()))
 			break
 		case  3:
 			setStandart()
-			data_rule=movies.filter((d) => d.genres.find( f => f.includes(movie_name)))
+			data_rule=data_rule.filter((d) => d.genres.find( f => f.toLowerCase().includes(movie_name.toLowerCase())))
 			break
 	}
 	
@@ -49,6 +50,8 @@ function App() {
 			document.getElementById("for_full_muvie").setAttribute('style',"display: none")
 			setCount(-1)
 		}
+		if(filters!="grade")data_rule=movies.sort((a, b) => ((a[filters] > b[filters])? 1 : -1))
+		else data_rule=movies.sort((a, b) => ((a[filters] < b[filters])? 1 : -1))
 	}
 	
 	return(
@@ -56,6 +59,7 @@ function App() {
 			<div id="main_container">
 				<header><h1>Застосунок для перегляду фільмів</h1>
 				<h3>Пошук:</h3>
+				  
 				<div id="search_engine">
 					
 					<form id="forfind">
@@ -82,6 +86,14 @@ function App() {
 				</div>		
 				</header>
 				<div id="body_container" >
+					<div className="filter_group">
+						<select onChange={(e) => (setFilter(e.target.value))}>
+						  <option value="name">За назвою</option>
+						  <option value="year">За роком</option>
+						  <option value="grade">За рейтингом</option>
+						</select>
+					</div>
+					<div id="body_content">
 					{data_rule.map((movie) => (
 							<div id={movie.id} className="standart" onClick={()=>setFull_screen(movie.id)}>
 							
@@ -106,9 +118,10 @@ function App() {
 							</div>
 						))
 					}
+					</div>
 				</div>
 				
-				<div id="for_full_muvie" style={{display: "none"}}/>
+				<div name="for_full_muvie" id="for_full_muvie" style={{display: "none"}}/>
 				
 			</div>
 			<footer> Буян Кирило КНТ-214
