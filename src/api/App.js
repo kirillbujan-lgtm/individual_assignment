@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import { movies } from "../../data/data.js";
-import '../css/App.css'
+import { movies } from "../data/data.js";
+import setFull_screen from "../components/setFull";
+import setStandart from "../components/setStandart.js";
+import '../style/App.css'
 
 
 var data_rule = movies.sort((a, b) => ((a.name > b.name)? 1 : -1))
-console.log(data_rule)
 function App() {
 	const [count, setCount] = useState(0)
 	const [movie_name, setMovie] = useState("")
@@ -15,44 +16,24 @@ function App() {
 	
 	switch(count){
 		case  0:
-			setStandart()
-			data_rule=data_rule
+			data_rule=setStandart(filters)
 			break
 		case  1:
-			setStandart()
+			data_rule=setStandart(filters)
 			data_rule=data_rule.filter((d) => d.year == movie_year)
 			break
 		case  2:
-			setStandart()
+			data_rule=setStandart(filters)
 			data_rule=data_rule.filter((d) => d.name.toLowerCase().includes(movie_name.toLowerCase()))
 			break
 		case  3:
-			setStandart()
+			data_rule=setStandart(filters)
 			data_rule=data_rule.filter((d) => d.genres.find( f => f.toLowerCase().includes(movie_name.toLowerCase())))
 			break
 	}
 	
-	function setFull_screen(divId){
-		var em = document.getElementById(divId)
-		var new_em=em.cloneNode(true);
-		new_em.setAttribute('class',"full_screen")
-		document.getElementById("body_container").setAttribute('style',"display: none")
-		document.getElementById("for_full_muvie").appendChild(new_em)
-		document.getElementById("for_full_muvie").setAttribute('style',"display: block")
-		document.getElementById("main_container").scrollIntoView(new_em)
-	}
 	
-	function setStandart(){
-		var fs = document.getElementsByClassName("full_screen")
-		if(fs.length!=0){
-			document.getElementById("body_container").setAttribute('style',"display: block")
-			document.getElementById("for_full_muvie").removeChild(fs[0])
-			document.getElementById("for_full_muvie").setAttribute('style',"display: none")
-			setCount(-1)
-		}
-		if(filters!="grade")data_rule=movies.sort((a, b) => ((a[filters] > b[filters])? 1 : -1))
-		else data_rule=movies.sort((a, b) => ((a[filters] < b[filters])? 1 : -1))
-	}
+	
 	
 	return(
 		<div >

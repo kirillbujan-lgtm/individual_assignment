@@ -1,7 +1,7 @@
 {
   "name": "individual_client",
   "version": "0.1.0",
-  "homepage": "https://kirillbujan-lgtm.github.io/individual_assignment/build/src/",
+  "homepage": "./src/",
   "private": true,
   "dependencies": {
     "@apollo/client": "^4.2.3",
