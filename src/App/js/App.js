@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { movies } from "./data/data.js";
-import './App.css'
+import { movies } from "../../data/data.js";
+import '../css/App.css'
 
 
 var data_rule = movies.sort((a, b) => ((a.name > b.name)? 1 : -1))
